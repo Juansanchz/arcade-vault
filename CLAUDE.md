@@ -8,21 +8,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Arcade Vault — an online arcade platform where users play games and compete for the highest score ("plataforma para jugar online y competir por la mayor cantidad de puntos"). The repo is currently a fresh `create-next-app` scaffold (App Router, TS, Tailwind v4) with no game/vault features implemented yet — `app/page.tsx` and `app/layout.tsx` are still the default template.
 
+### Skills
+
+Usa siempre /frontend-design para diseñar la interfaz de usuario.
+
 ### Spec Driven Design workflow
 
 Per README.md, this project follows Spec Driven Design using the `/spec` and `/spec-impl` skills from https://github.com/Klerith/fernando-skills. Those skills are **not yet installed** in this repo (no `.claude/skills` present). If a task calls for them, install first:
 
 ```bash
 npx skills@latest add Klerith/fernando-skills
-```
-
-## Commands
-
-```bash
-npm run dev      # next dev — Turbopack by default (no --turbopack flag needed in Next 16)
-npm run build    # next build — Turbopack by default; fails if a custom webpack config is present (see AGENTS.md-referenced docs)
-npm run start    # next start
-npm run lint     # eslint (flat config in eslint.config.mjs) — `next lint` was removed in Next 16
 ```
 
 There is no test runner configured in `package.json` yet.
