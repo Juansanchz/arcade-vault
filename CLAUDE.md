@@ -16,15 +16,6 @@ Per README.md, this project follows Spec Driven Design using the `/spec` and `/s
 npx skills@latest add Klerith/fernando-skills
 ```
 
-## Commands
-
-```bash
-npm run dev      # next dev — Turbopack by default (no --turbopack flag needed in Next 16)
-npm run build    # next build — Turbopack by default; fails if a custom webpack config is present (see AGENTS.md-referenced docs)
-npm run start    # next start
-npm run lint     # eslint (flat config in eslint.config.mjs) — `next lint` was removed in Next 16
-```
-
 There is no test runner configured in `package.json` yet.
 
 ## Architecture notes specific to this Next.js 16 / React 19.2 setup
