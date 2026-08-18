@@ -12,8 +12,10 @@ export default function Nav() {
   const pathname = usePathname();
   const { user, signOut } = useSession();
 
-  const isBiblioteca = pathname === "/" || pathname.startsWith("/juego");
+  const isHome = pathname === "/";
+  const isBiblioteca = pathname === "/biblioteca" || pathname.startsWith("/juego");
   const isSalon = pathname.startsWith("/salon");
+  const isAbout = pathname === "/about";
   const isAuth = pathname.startsWith("/auth");
 
   const close = () => setOpen(false);
@@ -28,11 +30,17 @@ export default function Nav() {
           </div>
         </Link>
         <div className="links">
-          <Link href="/" className={isBiblioteca ? "active" : ""}>
+          <Link href="/" className={isHome ? "active" : ""}>
+            Inicio
+          </Link>
+          <Link href="/biblioteca" className={isBiblioteca ? "active" : ""}>
             Biblioteca
           </Link>
           <Link href="/salon" className={isSalon ? "active" : ""}>
             Salón de la Fama
+          </Link>
+          <Link href="/about" className={isAbout ? "active" : ""}>
+            Acerca de
           </Link>
         </div>
         <div className="spacer"></div>
@@ -59,11 +67,17 @@ export default function Nav() {
         <div className="pixel neon-cyan" style={{ fontSize: 11, marginBottom: 16 }}>
           MENÚ
         </div>
-        <Link href="/" className={isBiblioteca ? "active" : ""} onClick={close}>
+        <Link href="/" className={isHome ? "active" : ""} onClick={close}>
+          Inicio
+        </Link>
+        <Link href="/biblioteca" className={isBiblioteca ? "active" : ""} onClick={close}>
           Biblioteca
         </Link>
         <Link href="/salon" className={isSalon ? "active" : ""} onClick={close}>
           Salón de la Fama
+        </Link>
+        <Link href="/about" className={isAbout ? "active" : ""} onClick={close}>
+          Acerca de
         </Link>
         <Link href="/auth" className={isAuth ? "active" : ""} onClick={close}>
           {user ? "Cuenta" : "Iniciar Sesión"}

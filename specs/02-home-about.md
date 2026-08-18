@@ -1,6 +1,6 @@
 # SPEC 02 — Pantallas Home y Acerca de
 
-> **Status:** Approved
+> **Status:** Implemented
 > **Date:** 2026-08-18
 > **Depends on:** SPEC 01
 > **Objective:** Migrar a Next.js App Router las pantallas Home y Acerca de del prototipo estático (`references/resources/templates/home-about/`), moviendo la Biblioteca actual de `/` a `/biblioteca`, agregando un Nav y footer compartidos en el layout raíz, y extrayendo los datos de juegos a `lib/games.ts`.
