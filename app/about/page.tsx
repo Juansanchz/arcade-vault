@@ -66,6 +66,8 @@ interface ContactForm {
   msg: string;
 }
 
+type SendStatus = "idle" | "sending" | "sent" | "error";
+
 export default function AboutPage() {
   useEffect(() => {
     const els = document.querySelectorAll(".reveal");
@@ -85,17 +87,30 @@ export default function AboutPage() {
   }, []);
 
   const [form, setForm] = useState<ContactForm>({ name: "", email: "", msg: "" });
-  const [sent, setSent] = useState<string | null>(null);
+  const [status, setStatus] = useState<SendStatus>("idle");
+  const [sentName, setSentName] = useState("");
   const [shake, setShake] = useState(false);
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!form.name.trim() || !form.email.trim() || !form.msg.trim()) {
       setShake(true);
       setTimeout(() => setShake(false), 400);
       return;
     }
-    setSent(form.name.trim());
+    setStatus("sending");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) throw new Error("send failed");
+      setSentName(form.name.trim());
+      setStatus("sent");
+    } catch {
+      setStatus("error");
+    }
   };
 
   return (
@@ -155,7 +170,7 @@ export default function AboutPage() {
           </div>
 
           <form className={"contact-form" + (shake ? " shake" : "")} onSubmit={onSubmit}>
-            {!sent ? (
+            {status === "idle" || status === "sending" ? (
               <>
                 <div className="field">
                   <label>NOMBRE</label>
@@ -183,11 +198,16 @@ export default function AboutPage() {
                     placeholder="Cuéntanos qué tienes en mente…"
                   ></textarea>
                 </div>
-                <button className="btn xl press" type="submit" style={{ width: "100%" }}>
-                  ▶ ENVIAR MENSAJE
+                <button
+                  className="btn xl press"
+                  type="submit"
+                  style={{ width: "100%" }}
+                  disabled={status === "sending"}
+                >
+                  {status === "sending" ? "ENVIANDO…" : "▶ ENVIAR MENSAJE"}
                 </button>
               </>
-            ) : (
+            ) : status === "sent" ? (
               <div className="terminal-success">
                 <div className="term-bar">
                   <span className="dot r"></span>
@@ -203,7 +223,7 @@ export default function AboutPage() {
                   <div className="line dim">[OK] Validando contenido…</div>
                   <div className="line dim">[OK] Transmitiendo paquete…</div>
                   <div className="line success">
-                    &gt; MENSAJE RECIBIDO. TE RESPONDEREMOS PRONTO. GRACIAS, {sent.toUpperCase()}.
+                    &gt; MENSAJE RECIBIDO. TE RESPONDEREMOS PRONTO. GRACIAS, {sentName.toUpperCase()}.
                     <span className="caret">_</span>
                   </div>
                   <div style={{ marginTop: 18 }}>
@@ -211,11 +231,37 @@ export default function AboutPage() {
                       className="btn ghost"
                       type="button"
                       onClick={() => {
-                        setSent(null);
+                        setStatus("idle");
                         setForm({ name: "", email: "", msg: "" });
                       }}
                     >
                       ENVIAR OTRO MENSAJE
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="terminal-success">
+                <div className="term-bar">
+                  <span className="dot r"></span>
+                  <span className="dot y"></span>
+                  <span className="dot g"></span>
+                  <span className="term-title">VAULT-OS // TERMINAL</span>
+                </div>
+                <div className="term-body">
+                  <div className="line">
+                    <span className="prompt">vault@arcade:~$</span> ./send_message --to=team
+                  </div>
+                  <div className="line dim">[OK] Conectando con servidor…</div>
+                  <div className="line dim">[OK] Validando contenido…</div>
+                  <div className="line fail">[FAIL] No se pudo entregar el mensaje.</div>
+                  <div style={{ marginTop: 18 }}>
+                    <button
+                      className="btn ghost"
+                      type="button"
+                      onClick={() => setStatus("idle")}
+                    >
+                      REINTENTAR
                     </button>
                   </div>
                 </div>
