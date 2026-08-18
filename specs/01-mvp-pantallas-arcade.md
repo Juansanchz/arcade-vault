@@ -1,6 +1,6 @@
 # SPEC 01 — Pantallas visuales del MVP de Arcade Vault
 
-> **Status:** Approved
+> **Status:** Completed
 > **Date:** 2026-08-17
 > **Objective:** Migrar a Next.js App Router las cinco pantallas del prototipo estático (`references/resources/templates/`) — Biblioteca, Detalle, Reproductor, Autenticación y Salón de la Fama — como maqueta visual completa, con datos simulados y sin lógica de juego real.
 
@@ -93,21 +93,21 @@ Convenciones:
 
 ## Acceptance criteria
 
-- [ ] `/` muestra la Biblioteca; el buscador y los chips de categoría filtran la grilla en tiempo real.
-- [ ] Cada tarjeta de juego navega a `/juego/[id]` al hacer clic (en toda la tarjeta y en el botón "JUGAR").
-- [ ] `/juego/[id]` muestra info del juego, tags, stats (`plays`, `best`) y la tabla "Mejores puntuaciones" generada con `seededScores`.
-- [ ] El botón "JUGAR AHORA" en Detalle navega a `/juego/[id]/jugar`.
-- [ ] `/juego/[id]/jugar` muestra el HUD y la pantalla CRT animada; la puntuación sube sola mientras no está en pausa ni terminado el juego.
-- [ ] "PAUSA"/"REANUDAR" detiene y reanuda el incremento de puntuación.
-- [ ] "FIN" abre el modal de fin de partida con la puntuación final.
-- [ ] Guardar la puntuación en el modal muestra "PUNTUACIÓN GUARDADA" sin escribir en `localStorage` ni ningún otro storage persistente.
-- [ ] "JUGAR DE NUEVO" reinicia puntuación, vidas, nivel y cierra el modal.
-- [ ] `/auth` permite alternar entre "INICIAR SESIÓN" y "CREAR CUENTA"; enviar el formulario, o entrar como invitado, redirige a `/` en los tres casos.
-- [ ] Tras iniciar sesión, el Nav muestra el nombre del usuario en vez de "Iniciar Sesión"; al recargar la página (F5) vuelve a mostrar "Iniciar Sesión" (sin persistencia).
-- [ ] `/salon` muestra tabs por juego, podio (top 3) y tabla completa; con sesión activa se ve la fila "TU MEJOR MARCA EN {JUEGO}".
-- [ ] El Nav resalta el enlace activo según la ruta actual y el menú hamburguesa funciona en mobile (<840px).
-- [ ] Ninguna pantalla implementa lógica real de un juego: toda la "jugabilidad" del Reproductor es decorativa/simulada (temporizador falso, sin input del jugador controlando nada).
-- [ ] `npm run build` compila sin errores.
+- [x] `/` muestra la Biblioteca; el buscador y los chips de categoría filtran la grilla en tiempo real.
+- [x] Cada tarjeta de juego navega a `/juego/[id]` al hacer clic (en toda la tarjeta y en el botón "JUGAR").
+- [x] `/juego/[id]` muestra info del juego, tags, stats (`plays`, `best`) y la tabla "Mejores puntuaciones" generada con `seededScores`.
+- [x] El botón "JUGAR AHORA" en Detalle navega a `/juego/[id]/jugar`.
+- [x] `/juego/[id]/jugar` muestra el HUD y la pantalla CRT animada; la puntuación sube sola mientras no está en pausa ni terminado el juego.
+- [x] "PAUSA"/"REANUDAR" detiene y reanuda el incremento de puntuación.
+- [x] "FIN" abre el modal de fin de partida con la puntuación final.
+- [x] Guardar la puntuación en el modal muestra "PUNTUACIÓN GUARDADA" sin escribir en `localStorage` ni ningún otro storage persistente.
+- [x] "JUGAR DE NUEVO" reinicia puntuación, vidas, nivel y cierra el modal.
+- [x] `/auth` permite alternar entre "INICIAR SESIÓN" y "CREAR CUENTA"; enviar el formulario, o entrar como invitado, redirige a `/` en los tres casos.
+- [x] Tras iniciar sesión, el Nav muestra el nombre del usuario en vez de "Iniciar Sesión"; al recargar la página (F5) vuelve a mostrar "Iniciar Sesión" (sin persistencia).
+- [x] `/salon` muestra tabs por juego, podio (top 3) y tabla completa; con sesión activa se ve la fila "TU MEJOR MARCA EN {JUEGO}".
+- [x] El Nav resalta el enlace activo según la ruta actual y el menú hamburguesa funciona en mobile (<840px).
+- [x] Ninguna pantalla implementa lógica real de un juego: toda la "jugabilidad" del Reproductor es decorativa/simulada (temporizador falso, sin input del jugador controlando nada).
+- [x] `npm run build` compila sin errores.
 
 ## Decisions
 
